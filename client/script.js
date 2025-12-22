@@ -248,15 +248,32 @@ ${scriptTag}
       const blob = new Blob([finalHtml], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
       
+      let fileName = 'index.html';
+      const importUrl = inputImportUrl.value.trim();
+      
+      // Tenta extrair o nome do arquivo da URL/Caminho se existir
+      if (importUrl) {
+        // Remove prefixo file:/// e decodifica caracteres (ex: %20)
+        let cleanPath = decodeURIComponent(importUrl.replace(/^file:\/\/\/?/, ''));
+        // Pega a última parte após / ou \
+        const parts = cleanPath.split(/[/\\]/);
+        const lastPart = parts[parts.length - 1];
+        
+        // Se terminar com .html ou .htm, usa esse nome
+        if (lastPart && (lastPart.toLowerCase().endsWith('.html') || lastPart.toLowerCase().endsWith('.htm'))) {
+          fileName = lastPart;
+        }
+      }
+
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'index.html';
+      a.download = fileName;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       
-      showToast('Download iniciado!');
+      showToast(`Download iniciado: ${fileName}`);
     } catch (err) {
       showToast('Erro ao gerar download', 'error');
       console.error(err);
