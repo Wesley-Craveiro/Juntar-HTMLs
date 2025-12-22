@@ -171,9 +171,13 @@ body {
 }
 
 .lang-tag {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  display: inline-block;
+  line-height: 1.2;
 }
 .lang-tag.html { background-color: var(--lang-html); }
 .lang-tag.css { background-color: var(--lang-css); }

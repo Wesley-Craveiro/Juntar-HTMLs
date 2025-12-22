@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WhatsApp Flutuante</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Botão flutuante WhatsApp -->
+  <a id="whatsapp-btn"
+     class="whatsapp-btn"
+     href="#"
+     aria-label="Abrir pop-up do WhatsApp">
+    <span class="pulse-ring" aria-hidden="true"></span>
+
+    <span class="icon-wrap" aria-hidden="true">
+      <!-- Ícone branco do WhatsApp (SVG) -->
+      <svg class="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path fill="#FFFFFF" d="M20.52 3.48A11.93 11.93 0 0012 0C5.373 0 .001 5.373 0 12 0 13.987.49 15.9 1.42 17.62L0 24l6.45-1.38A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12 0-3.2-1.25-6.175-3.48-8.52zM12 21.75c-1.8 0-3.57-.46-5.13-1.33L4 20l.64-2.87C3.34 15.7 2.7 13.9 2.7 12 2.7 7 7 2.7 12 2.7c5 0 9.3 4.3 9.3 9.3 0 2.5-1 4.78-2.77 6.48A9.29 9.29 0 0112 21.75z"/>
+        <path fill="#FFFFFF" d="M17.43 14.76c-.3-.15-1.78-.88-2.05-.98-.27-.1-.47-.15-.67.15-.2.3-.78.97-.96 1.17-.18.2-.36.22-.67.07-.3-.15-1.27-.47-2.42-1.49-.9-.8-1.5-1.78-1.67-2.09-.17-.3-.018-.46.13-.61.13-.12.3-.3.45-.45.15-.15.2-.27.3-.45.1-.18.05-.33-.02-.47-.07-.14-.67-1.61-.92-2.2-.24-.58-.48-.5-.67-.5-.18 0-.39-.02-.6-.02-.18 0-.47.07-.72.34-.25.27-.98.96-.98 2.33 0 1.37 1.01 2.69 1.15 2.88.15.18 1.99 3.15 4.83 4.42 2.84 1.28 2.84.86 3.35.81.5-.05 1.6-.65 1.83-1.28.22-.63.22-1.17.15-1.28-.07-.12-.26-.18-.56-.33z"/>
+      </svg>
+    </span>
+
+    <span class="notification" aria-hidden="true">
+      <span class="count">1</span>
+      <span class="ping" aria-hidden="true"></span>
+    </span>
+  </a>
+
+  <!-- POP-UP: oculto por padrão -->
+  <div id="wa-popup" class="wa-popup" aria-hidden="true" role="dialog" aria-label="Janela de atendimento">
+    <div class="wa-card" role="document">
+      <header class="wa-header">
+        <div class="wa-profile">
+          <img id="wa-avatar" class="wa-avatar"
+               src="https://eleicoes2024candidatosapi.otempo.com.br/api/photo/2024/FPI180001983855_div.jpg"
+               alt="Foto do profissional">
+          <span class="online-dot" aria-hidden="true"></span>
+        </div>
+        <div class="wa-meta">
+          <div class="wa-name" id="pro-name">Dra Cintia</div>
+          <div class="wa-role" id="pro-role">Psicóloga</div>
+        </div>
+        <button id="wa-close" class="wa-close" aria-label="Fechar">&times;</button>
+      </header>
+
+      <div class="wa-body" id="wa-body" role="region" aria-live="polite">
+        <div class="typing-area" id="typing-area" aria-hidden="false">
+          <div class="typing-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+        </div>
+
+        <div class="message-wrap hidden" id="first-message">
+          <div class="message-bubble">
+            <div class="message-title">Dra. Cintia Lopes</div>
+            <div class="message-text">Olá, como posso te ajudar hoje?</div>
+            <div class="message-time" id="message-time">11:34</div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="wa-footer">
+        <div class="schedule-container">
+          <button id="schedule-btn" class="schedule-btn" type="button" aria-label="Agendar consulta">
+            <!-- Ícone do WhatsApp aumentado e fiel à marca (branco) -->
+            <svg class="wh-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#FFFFFF" d="M20.52 3.48A11.93 11.93 0 0012 0C5.373 0 .001 5.373 0 12 0 13.987.49 15.9 1.42 17.62L0 24l6.45-1.38A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12 0-3.2-1.25-6.175-3.48-8.52zM12 21.75c-1.8 0-3.57-.46-5.13-1.33L4 20l.64-2.87C3.34 15.7 2.7 13.9 2.7 12 2.7 7 7 2.7 12 2.7c5 0 9.3 4.3 9.3 9.3 0 2.5-1 4.78-2.77 6.48A9.29 9.29 0 0112 21.75z"/>
+              <path fill="#FFFFFF" d="M17.43 14.76c-.3-.15-1.78-.88-2.05-.98-.27-.1-.47-.15-.67.15-.2.3-.78.97-.96 1.17-.18.2-.36.22-.67.07-.3-.15-1.27-.47-2.42-1.49-.9-.8-1.5-1.78-1.67-2.09-.17-.3-.018-.46.13-.61.13-.12.3-.3.45-.45.15-.15.2-.27.3-.45.1-.18.05-.33-.02-.47-.07-.14-.67-1.61-.92-2.2-.24-.58-.48-.5-.67-.5-.18 0-.39-.02-.6-.02-.18 0-.47.07-.72.34-.25.27-.98.96-.98 2.33 0 1.37 1.01 2.69 1.15 2.88.15.18 1.99 3.15 4.83 4.42 2.84 1.28 2.84.86 3.35.81.5-.05 1.6-.65 1.83-1.28.22-.63.22-1.17.15-1.28-.07-.12-.26-.18-.56-.33z"/>
+            </svg>
+
+            <span class="schedule-label">Agendar Consulta</span>
+          </button>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
