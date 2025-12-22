@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnClear = document.getElementById('btn-clear');
   const btnClosePreview = document.getElementById('btn-close-preview');
   
+  // Novos Elementos de Importação
+  const inputImportUrl = document.getElementById('input-import-url');
+  const btnImportAction = document.getElementById('btn-import-action');
+  const fileInput = document.getElementById('file-input');
+  
   const previewSection = document.getElementById('preview-section');
   const previewFrame = document.getElementById('preview-frame');
   const toast = document.getElementById('toast');
@@ -114,6 +119,94 @@ ${scriptTag}
   }
 
   // --- Event Listeners ---
+
+  // Botão Importar Action
+  btnImportAction.addEventListener('click', () => {
+    const url = inputImportUrl.value.trim();
+
+    if (!url) {
+      // Se vazio, assume que usuário quer abrir arquivo
+      fileInput.click();
+      return;
+    }
+
+    if (url.startsWith('file://') || url.match(/^[a-zA-Z]:\\/)) {
+      // Caminho local detectado
+      showToast('Para arquivos locais, selecione o arquivo na janela a seguir.', 'success');
+      // Pequeno delay para usuário ler o toast antes de abrir o picker
+      setTimeout(() => fileInput.click(), 1000);
+      return;
+    }
+
+    if (url.startsWith('http')) {
+      // TODO: Implementar fetch via proxy se necessário, por enquanto alertamos
+      alert('Importação direta de URL ainda não implementada (requer proxy CORS). Por favor, baixe o arquivo e use a opção de carregar arquivo.');
+    } else {
+      // Fallback para arquivo
+      fileInput.click();
+    }
+  });
+
+  // Input de Arquivo (Change)
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const content = event.target.result;
+      parseAndPopulate(content);
+      showToast(`Arquivo "${file.name}" carregado com sucesso!`);
+    };
+    reader.onerror = () => showToast('Erro ao ler arquivo', 'error');
+    reader.readAsText(file);
+    
+    // Reset para permitir selecionar o mesmo arquivo novamente
+    fileInput.value = '';
+  });
+
+  // Função para parsear HTML importado
+  function parseAndPopulate(htmlString) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, 'text/html');
+
+    // 1. Extrair CSS (<style>)
+    const styles = doc.querySelectorAll('style');
+    let cssContent = '';
+    styles.forEach(style => {
+      cssContent += style.innerHTML.trim() + '\n\n';
+      style.remove(); // Remove do doc para não duplicar no HTML
+    });
+
+    // 2. Extrair JS (<script>) - Ignora src externos por enquanto ou mantém no HTML?
+    // Vamos extrair scripts inline. Scripts com src ficam no HTML body geralmente.
+    const scripts = doc.querySelectorAll('script');
+    let jsContent = '';
+    scripts.forEach(script => {
+      if (!script.src && !script.type || script.type === 'text/javascript' || script.type === 'module') {
+        jsContent += script.innerHTML.trim() + '\n\n';
+        script.remove();
+      }
+    });
+
+    // 3. O que sobra é o HTML (Body innerHTML)
+    // Se o usuário importou um arquivo completo, pegamos o body.
+    // Se for fragmento, pegamos tudo.
+    let htmlBodyContent = '';
+    if (doc.body) {
+      htmlBodyContent = doc.body.innerHTML.trim();
+    } else {
+      htmlBodyContent = doc.documentElement.innerHTML.trim();
+    }
+
+    // Popula os editores
+    inputHtml.value = htmlBodyContent;
+    inputCss.value = cssContent.trim();
+    inputJs.value = jsContent.trim();
+
+    // Salva e atualiza UI
+    saveToStorage();
+  }
 
   // Auto-save ao digitar
   [inputHtml, inputCss, inputJs].forEach(input => {
