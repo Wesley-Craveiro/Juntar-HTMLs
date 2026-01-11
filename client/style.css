@@ -192,16 +192,23 @@ body {
 .editor-grid {
   flex: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 1px; /* Gap creates the border effect */
   background-color: var(--border-color); 
   overflow: hidden;
 }
 
+@media (max-width: 1024px) {
+  .editor-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}
+
 @media (max-width: 768px) {
   .editor-grid {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     overflow-y: auto;
   }
 }
@@ -234,6 +241,7 @@ body {
 }
 .lang-tag.html { background-color: var(--lang-html); }
 .lang-tag.css { background-color: var(--lang-css); }
+.lang-tag.md { background-color: #083fa1; }
 .lang-tag.js { background-color: var(--lang-js); }
 
 .file-name {
