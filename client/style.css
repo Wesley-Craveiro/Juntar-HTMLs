@@ -192,7 +192,7 @@ body {
 .editor-grid {
   flex: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 1px; /* Gap creates the border effect */
   background-color: var(--border-color); 
   overflow: hidden;
@@ -208,7 +208,7 @@ body {
 @media (max-width: 768px) {
   .editor-grid {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     overflow-y: auto;
   }
 }
