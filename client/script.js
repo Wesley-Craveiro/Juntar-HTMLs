@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const inputCss = document.getElementById('input-css');
   const inputReadme = document.getElementById('input-readme');
   const inputJs = document.getElementById('input-js');
-  const inputGameJs = document.getElementById('input-game-js');
   
   const btnPreview = document.getElementById('btn-preview');
   const btnCopy = document.getElementById('btn-copy');
@@ -26,8 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     HTML: 'sb_html_content',
     CSS: 'sb_css_content',
     README: 'sb_readme_content',
-    JS: 'sb_js_content',
-    GAME_JS: 'sb_game_js_content'
+    JS: 'sb_js_content'
   };
 
   // --- Funções Auxiliares ---
@@ -48,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
     inputCss.value = localStorage.getItem(STORAGE_KEYS.CSS) || '';
     inputReadme.value = localStorage.getItem(STORAGE_KEYS.README) || '';
     inputJs.value = localStorage.getItem(STORAGE_KEYS.JS) || '';
-    inputGameJs.value = localStorage.getItem(STORAGE_KEYS.GAME_JS) || '';
   }
 
   // Salvar no LocalStorage
@@ -57,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem(STORAGE_KEYS.CSS, inputCss.value);
     localStorage.setItem(STORAGE_KEYS.README, inputReadme.value);
     localStorage.setItem(STORAGE_KEYS.JS, inputJs.value);
-    localStorage.setItem(STORAGE_KEYS.GAME_JS, inputGameJs.value);
   }
 
   // Construir o HTML final
@@ -217,7 +213,7 @@ ${scriptTag}
   }
 
   // Auto-save ao digitar
-  [inputHtml, inputCss, inputReadme, inputJs, inputGameJs].forEach(input => {
+  [inputHtml, inputCss, inputReadme, inputJs].forEach(input => {
     input.addEventListener('input', saveToStorage);
   });
 
@@ -295,7 +291,6 @@ ${scriptTag}
       inputCss.value = '';
       inputReadme.value = '';
       inputJs.value = '';
-      inputGameJs.value = '';
       saveToStorage();
       previewSection.classList.add('hidden');
       previewFrame.srcdoc = '';
