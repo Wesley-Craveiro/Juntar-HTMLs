@@ -20,22 +20,22 @@
       <h1>SingleFile Bundler</h1>
     </div>
     <div class="actions">
-      <button id="btn-clear" class="btn btn-ghost">
+      <button id="btn-clear" class="btn btn-ghost" title="Limpar">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-        Limpar
+        <span>Limpar</span>
       </button>
-      <button id="btn-preview" class="btn btn-secondary">
+      <button id="btn-preview" class="btn btn-secondary" title="Gerar Preview">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-        Gerar Preview
+        <span>Gerar Preview</span>
       </button>
       <div class="divider"></div>
-      <button id="btn-copy" class="btn btn-secondary">
+      <button id="btn-copy" class="btn btn-secondary" title="Copiar código">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-        Copiar
+        <span>Copiar</span>
       </button>
-      <button id="btn-download" class="btn btn-primary">
+      <button id="btn-download" class="btn btn-primary" title="Baixar index.html">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-        Baixar index.html
+        <span>Baixar index.html</span>
       </button>
     </div>
   </header>
@@ -45,9 +45,9 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
       <input type="text" id="input-import-url" placeholder="Cole o caminho do arquivo (file:///...) ou URL aqui para importar" />
     </div>
-    <button id="btn-import-action" class="btn btn-secondary btn-sm">
+    <button id="btn-import-action" class="btn btn-secondary btn-sm" title="Carregar / Importar">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-      Carregar / Importar
+      <span>Carregar / Importar</span>
     </button>
     <input type="file" id="file-input" accept=".html,.htm" hidden />
   </div>
