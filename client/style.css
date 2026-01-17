@@ -214,7 +214,7 @@ body {
 .editor-grid {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   background-color: var(--border-color); 
   overflow: hidden;
@@ -362,8 +362,8 @@ iframe {
 /* Tablet and below */
 @media (max-width: 1024px) {
   .editor-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
     overflow-y: auto; /* Allow grid to scroll if content is tall */
   }
   

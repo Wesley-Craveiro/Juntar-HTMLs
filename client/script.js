@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Elementos ---
   const inputHtml = document.getElementById('input-html');
   const inputCss = document.getElementById('input-css');
-  const inputReadme = document.getElementById('input-readme');
   const inputJs = document.getElementById('input-js');
   
   const btnPreview = document.getElementById('btn-preview');
@@ -24,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const STORAGE_KEYS = {
     HTML: 'sb_html_content',
     CSS: 'sb_css_content',
-    README: 'sb_readme_content',
     JS: 'sb_js_content'
   };
 
@@ -44,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function loadFromStorage() {
     inputHtml.value = localStorage.getItem(STORAGE_KEYS.HTML) || '';
     inputCss.value = localStorage.getItem(STORAGE_KEYS.CSS) || '';
-    inputReadme.value = localStorage.getItem(STORAGE_KEYS.README) || '';
     inputJs.value = localStorage.getItem(STORAGE_KEYS.JS) || '';
   }
 
@@ -52,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function saveToStorage() {
     localStorage.setItem(STORAGE_KEYS.HTML, inputHtml.value);
     localStorage.setItem(STORAGE_KEYS.CSS, inputCss.value);
-    localStorage.setItem(STORAGE_KEYS.README, inputReadme.value);
     localStorage.setItem(STORAGE_KEYS.JS, inputJs.value);
   }
 
@@ -213,7 +209,7 @@ ${scriptTag}
   }
 
   // Auto-save ao digitar
-  [inputHtml, inputCss, inputReadme, inputJs].forEach(input => {
+  [inputHtml, inputCss, inputJs].forEach(input => {
     input.addEventListener('input', saveToStorage);
   });
 
@@ -289,7 +285,6 @@ ${scriptTag}
     if (confirm('Tem certeza que deseja limpar tudo?')) {
       inputHtml.value = '';
       inputCss.value = '';
-      inputReadme.value = '';
       inputJs.value = '';
       saveToStorage();
       previewSection.classList.add('hidden');
