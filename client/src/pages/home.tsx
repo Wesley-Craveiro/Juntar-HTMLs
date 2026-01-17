@@ -66,7 +66,10 @@ export default function Home() {
             <div className="flex h-full flex-col p-4">
               <div className="mb-4 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-6 w-6 items-center justify-center rounded bg-[#F7DF1E] text-[10px] font-bold text-black shadow-sm">
+                  <div 
+                    className="flex h-6 w-6 items-center justify-center rounded bg-[#F7DF1E] text-[10px] font-bold shadow-sm"
+                    style={{ color: "#000000" }}
+                  >
                     JS
                   </div>
                   <h3 className="font-semibold text-lg">JavaScript</h3>
