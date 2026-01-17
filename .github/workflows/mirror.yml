@@ -2,7 +2,7 @@ name: Mirror to client
 
 on:
   push:
-    branches: [ "main" ]   # troque para "principal" se seu repo usa principal
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
