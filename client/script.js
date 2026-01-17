@@ -1,8 +1,15 @@
+import { EditorView, basicSetup } from "codemirror"
+import { html } from "@codemirror/lang-html"
+import { css } from "@codemirror/lang-css"
+import { javascript } from "@codemirror/lang-javascript"
+import { oneDark } from "@codemirror/theme-one-dark"
+import { EditorState } from "@codemirror/state"
+
 document.addEventListener('DOMContentLoaded', () => {
   // --- Elementos ---
-  const inputHtml = document.getElementById('input-html');
-  const inputCss = document.getElementById('input-css');
-  const inputJs = document.getElementById('input-js');
+  const editorHtmlContainer = document.getElementById('editor-html');
+  const editorCssContainer = document.getElementById('editor-css');
+  const editorJsContainer = document.getElementById('editor-js');
   
   const btnPreview = document.getElementById('btn-preview');
   const btnCopy = document.getElementById('btn-copy');
@@ -26,6 +33,62 @@ document.addEventListener('DOMContentLoaded', () => {
     JS: 'sb_js_content'
   };
 
+  // --- Inicialização do CodeMirror ---
+  
+  const createEditor = (parent, langExtension, initialValue, saveCallback) => {
+    return new EditorView({
+      state: EditorState.create({
+        doc: initialValue,
+        extensions: [
+          basicSetup,
+          oneDark,
+          langExtension,
+          EditorView.updateListener.of((update) => {
+            if (update.docChanged) {
+              saveCallback(update.state.doc.toString());
+            }
+          }),
+          EditorView.theme({
+            "&": { height: "100%", fontSize: "14px" },
+            ".cm-scroller": { overflow: "auto" }
+          })
+        ]
+      }),
+      parent: parent
+    });
+  };
+
+  // Carrega valores iniciais
+  const initialHtml = localStorage.getItem(STORAGE_KEYS.HTML) || "<!-- Cole seu HTML aqui -->\n<h1>Olá Mundo</h1>";
+  const initialCss = localStorage.getItem(STORAGE_KEYS.CSS) || "/* Cole seu CSS aqui */\nbody { background: #f0f0f0; }";
+  const initialJs = localStorage.getItem(STORAGE_KEYS.JS) || "// Cole seu JavaScript aqui\nconsole.log('Carregado!');";
+
+  // Cria as instâncias dos editores
+  let viewHtml = createEditor(editorHtmlContainer, html(), initialHtml, (val) => {
+    localStorage.setItem(STORAGE_KEYS.HTML, val);
+  });
+
+  let viewCss = createEditor(editorCssContainer, css(), initialCss, (val) => {
+    localStorage.setItem(STORAGE_KEYS.CSS, val);
+  });
+
+  let viewJs = createEditor(editorJsContainer, javascript(), initialJs, (val) => {
+    localStorage.setItem(STORAGE_KEYS.JS, val);
+  });
+
+  // --- Helpers para pegar/setar valores ---
+  
+  const getHtml = () => viewHtml.state.doc.toString();
+  const getCss = () => viewCss.state.doc.toString();
+  const getJs = () => viewJs.state.doc.toString();
+
+  const setEditorContent = (view, content) => {
+    const transaction = view.state.update({
+      changes: { from: 0, to: view.state.doc.length, insert: content }
+    });
+    view.dispatch(transaction);
+  };
+
   // --- Funções Auxiliares ---
   
   // Mostrar Toast
@@ -38,25 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   }
 
-  // Carregar do LocalStorage
-  function loadFromStorage() {
-    inputHtml.value = localStorage.getItem(STORAGE_KEYS.HTML) || '';
-    inputCss.value = localStorage.getItem(STORAGE_KEYS.CSS) || '';
-    inputJs.value = localStorage.getItem(STORAGE_KEYS.JS) || '';
-  }
-
-  // Salvar no LocalStorage
-  function saveToStorage() {
-    localStorage.setItem(STORAGE_KEYS.HTML, inputHtml.value);
-    localStorage.setItem(STORAGE_KEYS.CSS, inputCss.value);
-    localStorage.setItem(STORAGE_KEYS.JS, inputJs.value);
-  }
-
   // Construir o HTML final
   function buildFinalHtml() {
-    const htmlContent = inputHtml.value;
-    const cssContent = inputCss.value;
-    const jsContent = inputJs.value;
+    const htmlContent = getHtml();
+    const cssContent = getCss();
+    const jsContent = getJs();
 
     const styleTag = cssContent ? `<style>\n${cssContent}\n</style>` : '';
     const scriptTag = jsContent ? `<script>\n${jsContent}\n<\/script>` : '';
@@ -200,18 +249,16 @@ ${scriptTag}
     }
 
     // Popula os editores
-    inputHtml.value = htmlBodyContent;
-    inputCss.value = cssContent.trim();
-    inputJs.value = jsContent.trim();
+    setEditorContent(viewHtml, htmlBodyContent);
+    setEditorContent(viewCss, cssContent.trim());
+    setEditorContent(viewJs, jsContent.trim());
 
-    // Salva e atualiza UI
-    saveToStorage();
+    // Salva manualmente pois o listener do CodeMirror cuida disso, 
+    // mas aqui estamos fazendo uma mudança "externa"
+    localStorage.setItem(STORAGE_KEYS.HTML, htmlBodyContent);
+    localStorage.setItem(STORAGE_KEYS.CSS, cssContent.trim());
+    localStorage.setItem(STORAGE_KEYS.JS, jsContent.trim());
   }
-
-  // Auto-save ao digitar
-  [inputHtml, inputCss, inputJs].forEach(input => {
-    input.addEventListener('input', saveToStorage);
-  });
 
   // Botão Preview
   btnPreview.addEventListener('click', () => {
@@ -283,16 +330,17 @@ ${scriptTag}
   // Botão Limpar
   btnClear.addEventListener('click', () => {
     if (confirm('Tem certeza que deseja limpar tudo?')) {
-      inputHtml.value = '';
-      inputCss.value = '';
-      inputJs.value = '';
-      saveToStorage();
+      setEditorContent(viewHtml, '');
+      setEditorContent(viewCss, '');
+      setEditorContent(viewJs, '');
+      
+      localStorage.setItem(STORAGE_KEYS.HTML, '');
+      localStorage.setItem(STORAGE_KEYS.CSS, '');
+      localStorage.setItem(STORAGE_KEYS.JS, '');
+      
       previewSection.classList.add('hidden');
       previewFrame.srcdoc = '';
       showToast('Editor limpo');
     }
   });
-
-  // --- Inicialização ---
-  loadFromStorage();
 });

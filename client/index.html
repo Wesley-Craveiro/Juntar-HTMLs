@@ -58,7 +58,7 @@
         <span class="lang-tag html">HTML</span>
         <span class="file-name">body / structure</span>
       </div>
-      <textarea id="input-html" placeholder="<!-- Cole seu HTML aqui -->&#10;<h1>Olá Mundo</h1>" spellcheck="false"></textarea>
+      <div id="editor-html" class="cm-editor-container"></div>
     </div>
 
     <div class="editor-pane">
@@ -66,7 +66,7 @@
         <span class="lang-tag css">CSS</span>
         <span class="file-name">style.css</span>
       </div>
-      <textarea id="input-css" placeholder="/* Cole seu CSS aqui */&#10;body { background: #f0f0f0; }" spellcheck="false"></textarea>
+      <div id="editor-css" class="cm-editor-container"></div>
     </div>
 
     <div class="editor-pane">
@@ -74,7 +74,7 @@
         <span class="lang-tag js">JS</span>
         <span class="file-name">script.js</span>
       </div>
-      <textarea id="input-js" placeholder="// Cole seu JavaScript aqui&#10;console.log('Carregado!');" spellcheck="false"></textarea>
+      <div id="editor-js" class="cm-editor-container"></div>
     </div>
   </main>
 
@@ -92,6 +92,6 @@
 
   <div id="toast" class="toast">Mensagem aqui</div>
 
-  <script src="./script.js"></script>
+  <script type="module" src="./script.js"></script>
 </body>
 </html>
