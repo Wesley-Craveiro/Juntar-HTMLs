@@ -263,19 +263,21 @@ body {
   text-overflow: ellipsis;
 }
 
-.cm-editor-container {
+textarea {
   flex: 1;
   background-color: var(--bg-input);
-  overflow: hidden; /* CodeMirror has its own scroll */
-  height: 100%;
+  color: var(--text-primary);
+  border: none;
+  resize: none;
+  padding: 1rem;
+  font-family: var(--font-code);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  outline: none;
+  width: 100%;
 }
-
-.cm-editor {
-  height: 100%;
-}
-
-.cm-scroller {
-  overflow: auto;
+textarea:focus {
+  background-color: #13151a; 
 }
 
 /* Preview Section */
