@@ -1,14 +1,26 @@
-name: Mirroring
-on: [push, delete] # Sincroniza também quando apagar branches
+name: Mirror to client
+
+on:
+  push:
+    branches: [ "principal" ]   # troque para "principal" se seu repo usa principal
+  workflow_dispatch:
 
 jobs:
-  build:
+  mirror:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: pixta-dev/repository-mirroring-action@v1
-        with:
-          target_repo_url: https://wesley-gois2:${{ secrets.DEST_TOKEN }}@github.com/wesley-gois2/<REPO_DESTINO>.git
+      - name: Push mirror to client repo
+        env:
+          DEST_TOKEN: ${{ secrets.DEST_TOKEN }}
+        run: |
+          git config user.name "Status Company Bot"
+          git config user.email "dev@statuscompany.com.br"
+
+          DEST_REPO="wesley-gois2/site-empresa-x"
+
+          git remote add client "https://x-access-token:${DEST_TOKEN}@github.com/${DEST_REPO}.git"
+          git push --mirror client
