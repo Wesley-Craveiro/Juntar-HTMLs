@@ -1,0 +1,24 @@
+name: Espelhar código para cliente X
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  espelho_cliente_x:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório da agência
+        uses: actions/checkout@v4
+
+      - name: Enviar código para o GitHub do cliente
+        run: |
+          git config --global user.name "Status Company Bot"
+          git config --global user.email "dev@statuscompany.com.br"
+
+          git remote add client https://x-access-token:${{ secrets.CLIENT_GITHUB_TOKEN_CLIENTE_X }}@github.com/github.com/wesley-gois2/site-empresa-x.git
+/site-empresa-x.git
+
+          git push client main
