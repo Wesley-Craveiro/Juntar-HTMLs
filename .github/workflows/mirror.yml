@@ -1,0 +1,26 @@
+name: Mirror to client
+
+on:
+  push:
+    branches: [ "principal" ]   # troque para "principal" se seu repo usa principal
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push mirror to client repo
+        env:
+          DEST_TOKEN: ${{ secrets.DEST_TOKEN }}
+        run: |
+          git config user.name "Status Company Bot"
+          git config user.email "dev@statuscompany.com.br"
+
+          DEST_REPO="wesley-gois2/site-empresa-x"
+
+          git remote add client "https://x-access-token:${DEST_TOKEN}@github.com/${DEST_REPO}.git"
+          git push --mirror client
