@@ -1,28 +1,29 @@
-name: Espelhar código para cliente X
+name: Espelhar para cliente X
 
 on:
   push:
-    branches:
-      - principal
+    branches: [principal]
   workflow_dispatch:
 
 jobs:
-  espelho_cliente_x:
+  mirror:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout do repositório da agência
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Enviar código para o GitHub do cliente
+      - name: Mirror to client repo
+        env:
+          TOKEN: ${{ secrets.CLIENT_GITHUB_TOKEN_CLIENTE_X }}
+          CLIENT_REPO: wesley-gois2/site-empresa-x
         run: |
-          git config --global user.name "Status Company Bot"
-          git config --global user.email "dev@statuscompany.com.br"
+          git config user.name "Status Company Bot"
+          git config user.email "dev@statuscompany.com.br"
 
-          # Repo do cliente (não quebre esta linha)
-          git remote add client https://x-access-token:${{ secrets.CLIENT_GITHUB_TOKEN_CLIENTE_X }}@github.com/wesley-gois2/site-empresa-x.git
+          git remote remove client 2>/dev/null || true
+          git remote add client "https://x-access-token:${TOKEN}@github.com/${CLIENT_REPO}.git"
 
-          # Empurra o estado atual da sua branch "principal" para a branch "main" do cliente
+          # Envia o código atual (principal) para main do cliente
           git push client HEAD:main
