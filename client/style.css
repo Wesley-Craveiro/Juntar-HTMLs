@@ -1,6 +1,7 @@
 :root {
   --bg-app: #0f1115;
   --bg-panel: #16181d;
+  --bg-header: #0D2034;
   --bg-input: #0f1115;
   
   --border-color: #2b303b;
@@ -41,7 +42,7 @@ body {
 /* Header */
 .app-header {
   height: var(--header-height);
-  background-color: var(--bg-panel);
+  background-color: var(--bg-header);
   border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
