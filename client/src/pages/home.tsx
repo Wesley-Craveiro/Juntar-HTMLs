@@ -67,7 +67,7 @@ export default function Home() {
               <div className="mb-4 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div 
-                    className="flex h-6 w-6 items-center justify-center rounded bg-[#F7DF1E] text-[10px] font-bold shadow-sm"
+                    className="flex h-6 w-6 items-center justify-center rounded bg-[#FDC616] text-[10px] font-bold shadow-sm"
                     style={{ color: "#000000" }}
                   >
                     JS
