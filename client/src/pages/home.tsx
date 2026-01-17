@@ -65,7 +65,12 @@ export default function Home() {
           <ResizablePanel defaultSize={33} minSize={20}>
             <div className="flex h-full flex-col p-4">
               <div className="mb-4 flex items-center justify-between">
-                <h3 className="font-semibold text-lg">JavaScript</h3>
+                <div className="flex items-center gap-2">
+                  <div className="flex h-6 w-6 items-center justify-center rounded bg-[#F7DF1E] text-[10px] font-bold text-black shadow-sm">
+                    JS
+                  </div>
+                  <h3 className="font-semibold text-lg">JavaScript</h3>
+                </div>
                 <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">read-only</span>
               </div>
               <div className="flex-1 overflow-hidden rounded-md border shadow-inner">
@@ -86,7 +91,12 @@ export default function Home() {
           <ResizablePanel defaultSize={33} minSize={20}>
              <div className="flex h-full flex-col p-4">
               <div className="mb-4 flex items-center justify-between">
-                <h3 className="font-semibold text-lg">HTML</h3>
+                <div className="flex items-center gap-2">
+                   <div className="flex h-6 w-6 items-center justify-center rounded bg-[#E34F26] text-[10px] font-bold text-white shadow-sm">
+                    HTML
+                  </div>
+                  <h3 className="font-semibold text-lg">HTML</h3>
+                </div>
                 <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">editable</span>
               </div>
               <div className="flex-1 overflow-hidden rounded-md border shadow-inner">
@@ -106,7 +116,12 @@ export default function Home() {
           <ResizablePanel defaultSize={34} minSize={20}>
              <div className="flex h-full flex-col p-4">
               <div className="mb-4 flex items-center justify-between">
-                <h3 className="font-semibold text-lg">Python</h3>
+                <div className="flex items-center gap-2">
+                  <div className="flex h-6 w-6 items-center justify-center rounded bg-[#3776AB] text-[10px] font-bold text-white shadow-sm">
+                    PY
+                  </div>
+                  <h3 className="font-semibold text-lg">Python</h3>
+                </div>
                 <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">editable</span>
               </div>
               <div className="flex-1 overflow-hidden rounded-md border shadow-inner">
