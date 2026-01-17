@@ -98,7 +98,7 @@ export default function Home() {
                    <div className="flex h-6 w-6 items-center justify-center rounded bg-[#E34F26] text-[10px] font-bold text-white shadow-sm">
                     HTML
                   </div>
-                  <h3 className="font-semibold text-lg">HTML</h3>
+                  <h3 className="font-semibold text-lg">Juntar html</h3>
                 </div>
                 <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">editable</span>
               </div>
