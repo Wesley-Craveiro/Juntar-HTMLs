@@ -1,0 +1,26 @@
+name: Enviar para repo do cliente
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  enviar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enviar para o GitHub do cliente
+        env:
+          TOKEN: ${{ secrets.CLIENT_PUSH_TOKEN }}
+        run: |
+          git config user.name "mirror-bot"
+          git config user.email "mirror-bot@users.noreply.github.com"
+
+          git remote add cliente https://x-access-token:${TOKEN}@github.com/wesley-gois2/site-empresa-x.git
+          git push cliente main:main --force
